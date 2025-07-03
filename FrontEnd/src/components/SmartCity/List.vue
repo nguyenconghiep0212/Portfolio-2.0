@@ -152,7 +152,6 @@ watch(pagination.value, () => {
 })
 
 async function getIncident() {
-  console.log(filter.value)
   await useSmartCityStore.getIncident(filter.value)
   if (useSmartCityStore.incidentList) {
     incidents.value = useSmartCityStore.incidentList.data

@@ -291,3 +291,4 @@ D:\Work\My Project\Portfolio 2.0\BackEnd\bin\Debug\net8.0\Microsoft.Extensions.D
 D:\Work\My Project\Portfolio 2.0\BackEnd\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\Work\My Project\Portfolio 2.0\BackEnd\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 D:\Work\My Project\Portfolio 2.0\BackEnd\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+D:\Work\My Project\Portfolio 2.0\BackEnd\obj\Debug\net8.0\BackEnd.sourcelink.json

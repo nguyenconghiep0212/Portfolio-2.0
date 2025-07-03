@@ -46,7 +46,7 @@
           <div class="flex items-center justify-end mr-8">
             <Bell class="mr-12" />
             <div class="pr-2">
-              <div class="flex items-end tracking-wide">John Doe</div>
+              <div class="flex items-end tracking-wide">{{ useAuthenStore.user }}</div>
               <div
                 class="flex justify-end text-sm text-blue-400 underline cursor-pointer"
                 @click="logout()"
@@ -75,7 +75,9 @@ import { RouterView, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import Bell from '@/components/SmartCity/Bell.vue'
 import { clearAccessToken, clearRefreshToken } from '@/utils/auth'
+import { useAuthen } from '@/stores/authentication'
 
+const useAuthenStore = useAuthen()
 const router = useRouter()
 const drawer = ref(true)
 const rail = ref(true)

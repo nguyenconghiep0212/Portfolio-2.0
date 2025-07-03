@@ -79,7 +79,6 @@ function applyFilter() {
       (e: any) => e.properties.gid == selectedCity.value,
     )
     useSmartCityStore.region_geojson.features = features
-    console.log(useSmartCityStore.region_geojson)
     emitter.emit(SMARTCITY_REGION_FILTER, selectedCity.value)
   }
 }

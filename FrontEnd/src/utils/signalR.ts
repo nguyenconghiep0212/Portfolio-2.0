@@ -1,5 +1,7 @@
 import * as signalR from '@microsoft/signalr'
 import { useGlobSetting } from '@/hooks/setting'
+import emitter from '@/emitter'
+import { SMARTCITY_SCENARIO_SIGNALR } from '@/enums/emitterKey'
 
 const globSetting = useGlobSetting()
 export const connection = new signalR.HubConnectionBuilder()
@@ -11,18 +13,25 @@ connection
   .start()
   .then(() => {
     console.log('Connected to SignalR')
-    SendMessage()
   })
   .catch((err) => console.error(err))
 
 // Send message to the hub
-export function SendMessage() {
-  connection.invoke('SendMessage', 'data1', 'data2').catch((err) => console.error(err))
+export function StartIncidentRandomizer() {
+  connection.invoke('SendRandomUnsolvedIncidentLoop').catch((err) => console.error(err))
+}
+
+export function CancelIncidentRandomizer() {
+  connection.invoke('CancelRandomUnsolvedIncidentLoop').catch((err) => console.error(err))
 }
 
 // Receive messages from the hub
-connection.on('messageReceived', function (user, message) {
-  const li = document.createElement('li')
-  li.textContent = `${user}: ${message}`
-  console.log(`signalr data: ${user} - ${message}`)
+connection.on('incidentReceived', function (message) {
+  emitter.emit(SMARTCITY_SCENARIO_SIGNALR, message)
+})
+connection.on('onStartScenario', function (message) {
+  console.log(message)
+})
+connection.on('onCancelScenario', function (message) {
+  console.log(message)
 })

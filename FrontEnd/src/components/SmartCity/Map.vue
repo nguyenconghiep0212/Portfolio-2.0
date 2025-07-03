@@ -11,12 +11,16 @@ import {
   SMARTCITY_LEGEND_FILTER,
   SMARTCITY_OVERVIEW_REFRESH,
   SMARTCITY_REGION_FILTER,
+  SMARTCITY_SCENARIO_SIGNALR,
 } from '@/enums/emitterKey'
 import { FILTER_POI, FILTER_TAB } from '@/enums/smartcity'
 
 let map: leaflet.Map
 const useSmartCityStore = useSmartCity()
 let geojson: any
+
+let scenarioIncidentLayer: any
+let scenarioIncidentMarkers: any[] = []
 
 let incidentLayer: any
 let hospitalLayer: any
@@ -83,6 +87,19 @@ onMounted(() => {
     }
     if (useSmartCityStore.selectedLegend.includes(FILTER_POI.INCIDENT)) {
       map.addLayer(incidentLayer)
+    }
+  })
+  emitter.on(SMARTCITY_SCENARIO_SIGNALR, (data: any) => {
+    try {
+      scenarioIncidentMarkers.push(
+        leaflet
+          .marker([JSON.parse(data.latLng)[0], JSON.parse(data.latLng)[1]])
+          .bindPopup(data.name),
+      )
+      scenarioIncidentLayer = leaflet.layerGroup(scenarioIncidentMarkers)
+      map.addLayer(scenarioIncidentLayer)
+    } catch (e) {
+      console.error(e)
     }
   })
 })

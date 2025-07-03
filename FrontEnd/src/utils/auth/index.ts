@@ -1,4 +1,7 @@
 import { ACCESS_TOKEN_KEY, CURRENT_PROJECT, REFRESH_TOKEN_KEY } from '@/enums/authen'
+import { jwtDecode } from 'jwt-decode'
+
+const token = 'YOUR_JWT_TOKEN_HERE' // Replace with your JWT
 
 export function getAccessToken() {
   return getLocalCache(ACCESS_TOKEN_KEY)
@@ -26,6 +29,19 @@ export function getCurrentProject() {
 
 export function setCurrentProject(token: string = '') {
   return setLocalCache(CURRENT_PROJECT, token)
+}
+
+export function getUserData() {
+  const token = getAccessToken()
+  if (token)
+    try {
+      const decoded = jwtDecode(token)
+      return decoded
+    } catch (error) {
+      console.error('Invalid token:', error)
+      return {}
+    }
+  else return {}
 }
 
 function getLocalCache(key: string) {

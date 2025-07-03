@@ -5,7 +5,7 @@ import type { CityData, Incident, ListRequest, POI } from '@/types/smartcity.ts'
 import { FILTER_TAB, FILTER_POI } from '@/enums/smartcity.ts'
 import { fetchIncident, fetchPoi } from '@/api/smartcity.ts'
 export const useSmartCity = defineStore('smartcity', () => {
-  const notifications = ref<number>(12)
+  const notifications = ref<Incident[]>([])
   const original_geojson = JSON.parse(geojson_string)
   const region_geojson = ref(JSON.parse(geojson_string))
   const selectedCity = ref<CityData | null>()
@@ -14,10 +14,6 @@ export const useSmartCity = defineStore('smartcity', () => {
   const selectedLegend = ref<string[]>([FILTER_POI.INCIDENT])
   const poiList = ref<POI[]>()
   const incidentList = ref<{ data: Incident[]; from: number; to: number; total: number }>()
-
-  function increment() {
-    notifications.value++
-  }
 
   async function getPOI(params: ListRequest) {
     const res = await fetchPoi(params)
@@ -41,7 +37,6 @@ export const useSmartCity = defineStore('smartcity', () => {
     selectedCity,
     poiList,
     incidentList,
-    increment,
     getPOI,
     getIncident,
   }

@@ -88,7 +88,6 @@ async function getData() {
   incidentTotalBySolved.value = await fetchIncidentTotalBySolved()
   incidentTotalBySeverity.value = await fetchIncidentTotalBySeverity()
   incidentTotalByCity.value = await fetchIncidentTotalByCity()
-  console.log(cities.value)
 
   mapCitiesUrbanize()
   mapCityPopulation()
